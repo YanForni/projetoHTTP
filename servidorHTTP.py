@@ -45,10 +45,20 @@ while True:
         filename = headers[0].split()[1]
         
         if verb == "PUT":
-            body = request.split("\n")
-            newfile = open("htdocs"+filename, "a")
-            newfile.write(body)
-            newfile.close()
+            try:
+                body = request.split("\n")
+                newfile = open("htdocs"+filename, "w")
+                newfile.seek(0)
+                body_content = '<html>'.join(body[body.index('\r')+1: len(body)])+'</html>'
+                newfile.write(body_content)
+                content = newfile.read()
+                newfile.close()
+                response = "HTTP/1.1 200 OK\n\n" + content
+            except:
+                response = 'HTTP/1.1 500 INTERNAL SERVER ERROR \n\n<h1>ERROR 500!<br>Internal Server Error!</h1>'
+
+            client_connection.sendall(response.encode())
+
         else:
             #verifica qual arquivo está sendo solicitado e envia a resposta para o cliente
             if filename == "/":
