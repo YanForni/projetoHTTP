@@ -49,16 +49,15 @@ while True:
                 body = request.split("\n")
                 newfile = open("htdocs"+filename, "w")
                 newfile.seek(0)
-                body_content = '<html>'.join(body[body.index('\r')+1: len(body)])+'</html>'
-                newfile.write(body_content)
-                content = newfile.read()
+                body_content = ''.join(body[body.index('\r')+1: len(body)])
+                content = '<html>'+body_content+'</html>'
+                newfile.write(content)
                 newfile.close()
                 response = "HTTP/1.1 200 OK\n\n" + content
-            except:
-                response = 'HTTP/1.1 500 INTERNAL SERVER ERROR \n\n<h1>ERROR 500!<br>Internal Server Error!</h1>'
-
-            client_connection.sendall(response.encode())
-
+            except Exception as ex:
+                response = 'HTTP/1.1 500 INTERNAL SERVER ERROR \n\n<h1>ERROR 500!<br>Internal Server Error! <br>'+ex+'</h1>'
+            finally:
+                client_connection.sendall(response.encode())
         else:
             #verifica qual arquivo está sendo solicitado e envia a resposta para o cliente
             if filename == "/":
