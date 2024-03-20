@@ -35,35 +35,41 @@ while True:
     #verifica se a request possui algum conteúdo (pois alguns navegadores ficam periodicamente enviando alguma string vazia)
     if request:
         #imprime a solicitação do cliente
-        print(request)
+        #print(request)
         
         #analisa a solicitação HTTP
         headers = request.split("\n")
+        verb = headers[0].split()[0]
         #print(headers)#impressão dos cabeçalhos
         #pega o nome do arquivo sendo solicitado
         filename = headers[0].split()[1]
+        
+        if verb == "PUT":
+            body = request.split("\n")
+            newfile = open("htdocs"+filename, "a")
+            newfile.write(body)
+            newfile.close()
+        else:
+            #verifica qual arquivo está sendo solicitado e envia a resposta para o cliente
+            if filename == "/":
+                filename = "/index.html"
 
-        #verifica qual arquivo está sendo solicitado e envia a resposta para o cliente
-        if filename == "/":
-            filename = "/index.html"
+            #try e except para tratamento de erro quando um arquivo solicitado não existir
+            try:
+                #abrir o arquivo e enviar para o cliente
+                fin = open("htdocs" + filename)
+                #leio o conteúdo do arquivo para uma variável
+                content = fin.read()
+                #fecho o arquivo
+                fin.close()
+                #envia a resposta
+                response = "HTTP/1.1 200 OK\n\n" + content
+            except FileNotFoundError:
+                #caso o arquivo solicitado não exista no servidor, gera uma resposta de erro
+                response = "HTTP/1.1 404 NOT FOUND\n\n<h1>ERROR 404!<br>File Not Found!</h1>"
 
-        #try e except para tratamento de erro quando um arquivo solicitado não existir
-        try:
-            #abrir o arquivo e enviar para o cliente
-            fin = open("htdocs" + filename)
-            #leio o conteúdo do arquivo para uma variável
-            content = fin.read()
-            #fecho o arquivo
-            fin.close()
-            #envia a resposta
-            response = "HTTP/1.1 200 OK\n\n" + content
-        except FileNotFoundError:
-            #caso o arquivo solicitado não exista no servidor, gera uma resposta de erro
-            response = "HTTP/1.1 404 NOT FOUND\n\n<h1>ERROR 404!<br>File Not Found!</h1>"
-
-
-        #envia a resposta HTTP
-        client_connection.sendall(response.encode())
+            #envia a resposta HTTP
+            client_connection.sendall(response.encode())
 
         client_connection.close()
 
