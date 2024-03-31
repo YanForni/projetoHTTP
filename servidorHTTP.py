@@ -54,11 +54,13 @@ while True:
                 newfile.write(content)
                 newfile.close()
                 response = "HTTP/1.1 200 OK\n\n" + content
+                print("Content put in", filename)
             except Exception as ex:
                 response = 'HTTP/1.1 500 INTERNAL SERVER ERROR \n\n<h1>ERROR 500!<br>Internal Server Error! <br>'+ex+'</h1>'
+                print("Error 500: Internal Server Error\n")
             finally:
                 client_connection.sendall(response.encode())
-        else:
+        elif verb == "GET":
             #verifica qual arquivo está sendo solicitado e envia a resposta para o cliente
             if filename == "/":
                 filename = "/index.html"
@@ -73,12 +75,16 @@ while True:
                 fin.close()
                 #envia a resposta
                 response = "HTTP/1.1 200 OK\n\n" + content
+                print("Got content from", filename)
             except FileNotFoundError:
                 #caso o arquivo solicitado não exista no servidor, gera uma resposta de erro
                 response = "HTTP/1.1 404 NOT FOUND\n\n<h1>ERROR 404!<br>File Not Found!</h1>"
-
-            #envia a resposta HTTP
-            client_connection.sendall(response.encode())
+                print("Error 404: "+filename[1:]+" Not Found\n")
+            finally:
+                #envia a resposta HTTP
+                client_connection.sendall(response.encode())
+        else:
+            print("Verb "+verb+" not implemented.\n")
 
         client_connection.close()
 
