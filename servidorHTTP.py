@@ -68,17 +68,20 @@ while True:
             #try e except para tratamento de erro quando um arquivo solicitado não existir
             try:
                 #abrir o arquivo e enviar para o cliente
-                fin = open("htdocs" + filename)
+                fin = open("htdocs" + filename, encoding='utf-8')
                 #leio o conteúdo do arquivo para uma variável
                 content = fin.read()
                 #fecho o arquivo
                 fin.close()
                 #envia a resposta
-                response = "HTTP/1.1 200 OK\n\n" + content
+                response = "HTTP/1.1 200 OK\nContent-Type: text/html; charset=utf-8\n\n" + content
                 print("Got content from", filename)
             except FileNotFoundError:
                 #caso o arquivo solicitado não exista no servidor, gera uma resposta de erro
-                response = "HTTP/1.1 404 NOT FOUND\n\n<h1>ERROR 404!<br>File Not Found!</h1>"
+                fin = open("htdocs/404.html", encoding='utf-8')
+                content = fin.read()
+                fin.close()
+                response = "HTTP/1.1 404 NOT FOUND\nContent-Type: text/html; charset=utf-8\n\n" + content
                 print("Error 404: "+filename[1:]+" Not Found\n")
             finally:
                 #envia a resposta HTTP

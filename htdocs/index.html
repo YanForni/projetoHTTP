@@ -1,10 +1,111 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Hello World</title>
+    <title>Biblioteca</title>
+    <style>
+        .book-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .book-tile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 18%;
+            margin: 1%;
+            text-align: center;
+        }
+        .book-tile a {
+            text-decoration: none;
+            color: black;
+        }
+        .book-cover {
+            width: 100%;
+            height: 500px;
+        }
+        .book-title {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .book-author {
+            color: gray;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <p>Welcome to the index.html web page..</p>
-    <p>Here's a link to <a href="ipsum.html">Ipsum</a></p>
+    <h1>Biblioteca</h1>
+    <div class="book-container">
+        <div class="book-tile">
+            <a href="book/01.html">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/id/13538218-M.jpg">
+                <div class="book-title">Dom Quixote</div>
+                <div class="book-author">Miguel de Cervantes</div>
+            </a>
+        </div>
+        <div class="book-tile">
+            <a href="book/02.html">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/id/14565295-M.jpg">
+                <div class="book-title">Um Conto de Duas Cidades</div>
+                <div class="book-author">Charles Dickens</div>
+            </a>
+        </div>
+        <div class="book-tile">
+            <a href="book/03.html">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/id/13237492-M.jpg">
+                <div class="book-title">O Senhor dos Anéis: A sociedade do Anel</div>
+                <div class="book-author">J.R.R. Tolkien</div>
+            </a>
+        </div>
+        <div class="book-tile">
+            <a href="book/04.html">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/id/12369738-M.jpg">
+                <div class="book-title">O Pequeno Príncipe</div>
+                <div class="book-author">Antoine de Saint-Exupéry</div>
+            </a>
+        </div>
+        <div class="book-tile">
+            <a href="book/05.html">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/id/14512053-M.jpg">
+                <div class="book-title">Harry Potter e a Pedra Filosofal</div>
+                <div class="book-author">J.K. Rowling</div>
+            </a>
+        </div>
+        <div class="book-tile">
+            <a href="book/06.html">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/id/13665306-M.jpg">
+                <div class="book-title">E não Sobrou Nenhum</div>
+                <div class="book-author">Agatha Christie</div>
+            </a>
+        </div>
+        <div class="book-tile">
+            <a href="book/07.html">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/id/13326886-M.jpg">
+                <div class="book-title">O Hobbit</div>
+                <div class="book-author">J.R.R. Tolkien</div>
+            </a>
+        </div>
+        <div class="book-tile">
+            <a href="book/08.html">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/id/10578429-M.jpg">
+                <div class="book-title">O Código Da Vinci</div>
+                <div class="book-author">Dan Brown</div>
+            </a>
+        </div>
+        <div class="book-tile">
+            <a href="book/09.html">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/id/12372777-M.jpg">
+                <div class="book-title">O Alquimista</div>
+                <div class="book-author">Paulo Coelho</div>
+            </a>
+        </div>
+        <div class="book-tile">
+            <a href="book/10.html">
+                <img class="book-cover" src="https://covers.openlibrary.org/b/id/14351169-M.jpg">
+                <div class="book-title">Crepúsculo</div>
+                <div class="book-author">Stephenie Meyer</div>
+            </a>
+        </div>
+    </div>
 </body>
 </html>
